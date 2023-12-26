@@ -1,64 +1,38 @@
 ## Overview
 
-This repository contains resources and scripts for a DataOps exercise focused on creating and inserting car-related data into MongoDB collections. The exercise covers essential steps, including setting up a local MongoDB instance, creating collections, creating an admin user, connecting to the database using Pymongo, inserting data into collections, joining and aggregating data, and exporting to JSON.
+This project involves utilizing AWS services like S3, Athena, and Python libraries (awswrangler, boto3, pyathena) to handle data ingestion and analysis tasks. The code reads CSV files, inserts data into an S3 bucket in Parquet format, creates corresponding tables in Amazon Athena, and performs SQL queries for data analysis.
 
 ## Table of Contents
 
 - [Requirements](#requirements)
-- [Installation](#installation)
+- [Setup](#setup)
 - [MongoDB Setup](#mongodb-setup)
 - [Scripts](#scripts)
 - [Aggregations](#aggregations)
 
 ## Requirements
+- AWS account and services: S3, Athena
+- Python libraries: `pandas`,`pyathena`, `awswrangler`, `boto3`, `os`, `dotenv`
 
-Ensure you have the following dependencies installed:
+## Setup
+Install necessary Python libraries using ```pip install -r requirements.txt```.
+Set up environmental variables for AWS credentials (AWS_ACCESS_KEY, AWS_SECRET_KEY, AWS_REGION, etc.).
+Ensure CSV files (Person.Person.csv, Production.Product.csv, etc.) are accessible in the specified location.
 
-- [MongoDB](https://www.mongodb.com/try/download/community)
-- Python libraries: `pandas`, `dotenv`, `pymongo`, `os`
+## AWS Structure
 
-## Installation
-MongoDB Installation:
-Download and install MongoDB from [here](https://www.mongodb.com/try/download/community).
-Follow the installation instructions for your operating system.
-Use Compass UI to manage your MongoDB instance.
+### S3 Buckets
+Ensure you have a S3 Bucket created with the desired name. Data files (such as CSV, Parquet, JSON) are always stored in S3 buckets as they can serve as an Datalake receiving structured and non-structured data. These files commonly should be raw data, logs, or structured data files generated from various sources and further transformations.
 
-Python Dependencies:
-Install the required Python libraries using the following command:
-`pip install -r requirements.txt`
-
-## MongoDB-Setup
-
-Open Mongosh and run the following code for creating a database and new collections for our project:
-```
-use cars_db
-db.createCollection('carros')
-db.createCollection('montadoras')
-```
-
-Create an Admin user:
-```
-use cars_db
-
-db.createUser(
-  {
-    user: 'admin_dataops',
-    pwd: '*******************',
-    roles: [
-      { role: "userAdminAnyDatabase", db: "cars_db"},
-      { role: "userWriteAnyDatabase", db: "cars_db"}
-    ]
-  }
-)
-```
+### Amazon Athena
+S3 buckets + Athena query console offers an efficient and low-cost strategy for creating fast analysis as Athena directly queries data in S3 without needing a predefined schema or database setup, eliminating traditional database maintenance costs.
 
 # Scripts
-Connect to the Database Using Pymongo: Follow [DataOps.ipynb](https://github.com/viniciusfjacinto/dataops-exercise/blob/main/DataOps.ipynb) code instructions.
+Follow [teste_eng_jr.ipynb](https://github.com/viniciusfjacinto/data-engineering-test/blob/main/teste_eng_jr.ipynb) code instructions.
 
 It's important that you save your user information into environment variables using dotenv library
 
-The script will create two dataframes with the following structure:
-
+The script will load .csv data 
 1) carros
 
 ![image](https://github.com/viniciusfjacinto/dataops-exercise/assets/87664450/5575b1cb-1f59-4875-bc8a-41a0c14ef037)
