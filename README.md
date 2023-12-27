@@ -52,4 +52,81 @@ The schema below show how data tables are related to each other in Athena:
 
 Here we expose the queries that answers the five questions proposed in the test (in portuguese):
 
+1.	Escreva uma query que retorna a quantidade de linhas na tabela Sales.SalesOrderDetail pelo campo SalesOrderID, desde que tenham pelo menos três linhas de detalhes.
+```
+SELECT SalesOrderID, COUNT(*) AS NumberOfDetails
+FROM "teste-eng-jr".sales_orderdetail
+GROUP BY SalesOrderID
+HAVING COUNT(*) >= 3
+```
 
+2.	Escreva uma query que ligue as tabelas Sales.SalesOrderDetail, Sales.SpecialOfferProduct e Production.Product e retorne os 3 produtos (Name) mais vendidos (pela soma de OrderQty), agrupados pelo número de dias para manufatura (DaysToManufacture).
+```
+SELECT
+    pp.Name AS ProductName,
+    pp.DaysToManufacture,
+    SUM(sod.OrderQty) AS TotalOrderQuantity
+FROM
+"teste-eng-jr".sales_orderdetail sod
+INNER JOIN "teste-eng-jr".sales_specialofferproduct ssop
+  ON sod.specialofferid = ssop.specialofferid and sod.productid = ssop.productid
+INNER JOIN "teste-eng-jr".production_product pp
+  ON pp.productid = ssop.productid
+GROUP BY
+    pp.Name, pp.DaysToManufacture
+ORDER BY
+    SUM(sod.OrderQty) DESC
+LIMIT 3
+```
+
+3.	Escreva uma query ligando as tabelas Person.Person, Sales.Customer e Sales.SalesOrderHeader de forma a obter uma lista de nomes de clientes e uma contagem de pedidos efetuados.
+```
+SELECT
+    pe.businessentityid as PersonID,
+    CONCAT(coalesce(pe.FirstName,''), ' ', COALESCE(pe.middlename,''), ' ', COALESCE(pe.LastName,'')) AS CustomerName,
+    COUNT(soh.SalesOrderID) AS NumberOfOrders
+FROM
+    "teste-eng-jr".Person_Person pe
+INNER JOIN
+    "teste-eng-jr".sales_customer sc ON pe.BusinessEntityID = sc.PersonID
+INNER JOIN
+    "teste-eng-jr".sales_orderheader soh ON sc.CustomerID = soh.CustomerID
+GROUP BY
+    1,2
+ORDER BY
+    COUNT(soh.SalesOrderID) desc
+```
+
+4.	Escreva uma query usando as tabelas Sales.SalesOrderHeader, Sales.SalesOrderDetail e Production.Product, de forma a obter a soma total de produtos (OrderQty) por ProductID e OrderDate.
+```
+SELECT
+    sod.ProductID,
+    pp.name ProductName,
+    soh.OrderDate,
+    SUM(sod.OrderQty) AS TotalOrderQuantity
+FROM
+"teste-eng-jr".sales_orderheader soh
+INNER JOIN "teste-eng-jr".sales_orderdetail sod
+ON sod.salesorderid = soh.salesorderid
+INNER JOIN "teste-eng-jr".production_product pp
+ON pp.productid = sod.productid
+GROUP BY
+    sod.ProductID, pp.name, soh.OrderDate
+```
+
+5.	Escreva uma query mostrando os campos SalesOrderID, OrderDate e TotalDue da tabela Sales.SalesOrderHeader. Obtenha apenas as linhas onde a ordem tenha sido feita durante o mês de setembro/2011 e o total devido esteja acima de 1.000. Ordene pelo total devido decrescente.
+
+```
+SELECT
+    SalesOrderID,
+    OrderDate,
+    TotalDue
+FROM
+    "teste-eng-jr".sales_orderheader
+WHERE
+    YEAR(CAST(OrderDate as TIMESTAMP)) = 2011
+    AND MONTH(CAST(OrderDate AS TIMESTAMP)) = 9
+    AND TotalDue > 1000
+ORDER BY
+    TotalDue DESC;
+```
