@@ -21,6 +21,8 @@ Ensure CSV files (Person.Person.csv, Production.Product.csv, etc.) are accessibl
 
 ## AWS Structure
 
+![image](https://github.com/viniciusfjacinto/data-engineering-test/assets/87664450/a8aff113-ac02-4640-b3bb-45aa7f83a940)
+
 ### S3 Buckets
 
 Ensure you have a S3 Bucket created with the desired name. Data files (such as CSV, Parquet, JSON) are always stored in S3 buckets as they can serve as an Datalake receiving structured and non-structured data. These files commonly should be raw data, logs, or structured data files generated from various sources and further transformations.
