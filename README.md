@@ -40,6 +40,7 @@ https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
 
 The script will load .csv files as Pandas dataframes and then insert it into the desired S3 Bucket, creating a new Athena table for querying every .csv individually like the image below:
 
+
 ![image](https://github.com/viniciusfjacinto/data-engineering-test/assets/87664450/f2588105-9814-4850-9acd-e1537a1acce8)
 
 # Relationships
