@@ -6,9 +6,9 @@ This project involves utilizing AWS services like S3, Athena, and Python librari
 
 - [Requirements](#requirements)
 - [Setup](#setup)
-- [MongoDB Setup](#mongodb-setup)
-- [Scripts](#scripts)
-- [Aggregations](#aggregations)
+- [AWS Structure](#aws-structure)
+- [Relationships](#relationships)
+- [Queries](#queries)
 
 ## Requirements
 - AWS account and services: S3, Athena
@@ -32,79 +32,9 @@ Follow [teste_eng_jr.ipynb](https://github.com/viniciusfjacinto/data-engineering
 
 It's important that you save your user information into environment variables using dotenv library
 
-The script will load .csv data 
+The script will load .csv files as Pandas dataframes and then insert it into the desired S3 Bucket, creating a new Athena table for querying every .csv individually like the image below:
+![image](https://github.com/viniciusfjacinto/data-engineering-test/assets/87664450/f2588105-9814-4850-9acd-e1537a1acce8)
 
 
-Then it wil insert those data into `cars_db.carros` and `cars_db.montadoras` using insert_many command.
-
-# Aggregations
-In Mongo Compass we will then JOIN carros and montadoras by the column 'Montadora' with the purpose of bringing column 'Pais' to our table.
-Next we're going to count how many car models there are by 'Pais'
-At the end we will export the resulting data to a .json
-
-Here are the steps:
-1) Joining data
-```
-[
-    {
-        $lookup: {
-            from: "montadoras",
-            localField: "Montadora",
-            foreignField: "Montadora",
-            as: "joined_data"
-        }
-    },
-    {
-        $unwind: "$joined_data"
-    },
-    {
-        $project: {
-            _id: 1,  
-            Carro: 1, 
-            Cor: 1,  
-            Montadora: 1, 
-            Pais: "$joined_data.Pais"  // Include the Pais field from the joined collection
-        }
-    }
-]
-```
-2) Aggregating by 'Pais'
-```
-
-db.carros.aggregate([
-  {
-    $lookup: {
-      from: "montadoras",
-      localField: "Montadora",
-      foreignField: "Montadora",
-      as: "joined_data",
-    },
-  },
-  {
-    $unwind: "$joined_data",
-  },
-  {
-    $project: {
-      _id: 1,
-      Carro: 1,
-      Cor: 1,
-      Montadora: 1,
-      Pais: "$joined_data.Pais", // Include the Pais field from the joined collection
-    },
-  },
-  {
-    $group: {
-      _id: "$Pais",
-      Carros: { $sum: 1 }, // Count the number of documents in each group
-    },
-  },
-  {
-    $out: "carros_por_pais", // Output the result to a new collection named 'grouped_result'
-  },
-])
-```
-
-#### The last query creates a new collection named `carros_por_pais` which we will export to .json using the 'Export Data' button in Compass
-
-![image](https://github.com/viniciusfjacinto/data-engineering-test/assets/87664450/60099351-61b5-45c2-98f3-be09c6f7ff99)
+# Relationships
 
