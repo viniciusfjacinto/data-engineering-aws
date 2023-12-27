@@ -30,11 +30,25 @@ S3 buckets + Athena query console offers an efficient and low-cost strategy for 
 # Scripts
 Follow [teste_eng_jr.ipynb](https://github.com/viniciusfjacinto/data-engineering-test/blob/main/teste_eng_jr.ipynb) code instructions.
 
-It's important that you save your user information into environment variables using dotenv library
+It's important that you save your user information into environment variables using dotenv library.
+
+https://sparkbyexamples.com/python/using-python-dotenv-load-environment-variables/
+
+Also you need to habilitate your AWS access and secret keys to use then with libraries Boto3 (for inserting data and acessing S3 buckets) and Pyathena (for querying data). 
+
+https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html
 
 The script will load .csv files as Pandas dataframes and then insert it into the desired S3 Bucket, creating a new Athena table for querying every .csv individually like the image below:
+
 ![image](https://github.com/viniciusfjacinto/data-engineering-test/assets/87664450/f2588105-9814-4850-9acd-e1537a1acce8)
 
-
 # Relationships
+The schema below show how data tables are related to each other in Athena:
+
+![image](https://github.com/viniciusfjacinto/data-engineering-test/assets/87664450/8f745a4a-cb83-43b8-b930-30fc1f74d8e6)
+
+# Queries
+
+Here we expose the queries that answers the five questions proposed in the test (in portuguese):
+
 
