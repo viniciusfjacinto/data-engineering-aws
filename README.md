@@ -33,14 +33,7 @@ Follow [teste_eng_jr.ipynb](https://github.com/viniciusfjacinto/data-engineering
 It's important that you save your user information into environment variables using dotenv library
 
 The script will load .csv data 
-1) carros
 
-![image](https://github.com/viniciusfjacinto/dataops-exercise/assets/87664450/5575b1cb-1f59-4875-bc8a-41a0c14ef037)
-
-
-2) montadoras
-
-![image](https://github.com/viniciusfjacinto/dataops-exercise/assets/87664450/8d1d8d26-48f1-482d-9ec9-5b28b363a818)
 
 Then it wil insert those data into `cars_db.carros` and `cars_db.montadoras` using insert_many command.
 
