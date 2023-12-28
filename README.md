@@ -31,7 +31,7 @@ Ensure you have a S3 Bucket created with the desired name. Data files (such as C
 S3 buckets + Athena query console offers an efficient and low-cost strategy for creating fast analysis as Athena directly queries data in S3 without needing a predefined schema or database setup, eliminating traditional database maintenance costs.
 
 # Scripts
-Follow [teste_eng_jr.ipynb](https://github.com/viniciusfjacinto/data-engineering-test/blob/main/teste_eng_jr.ipynb) code instructions.
+Follow [main.ipynb](https://github.com/viniciusfjacinto/data-engineering-test/blob/main/main.ipynb) code instructions.
 
 It's important that you save your user information into environment variables using dotenv library.
 
