@@ -1,6 +1,6 @@
 ## Overview
 
-This project involves using AWS services like S3, Athena, and Python libraries (awswrangler, boto3, pyathena) to handle data ingestion and analysis tasks. The code reads CSV files, inserts data into an S3 bucket in Parquet format, creates corresponding tables in Amazon Athena, and performs SQL queries for data analysis according to business questions.
+This project involves using AWS services like S3, Athena, and Python libraries (awswrangler, boto3, pyathena) to handle data ingestion and analysis tasks. The code reads CSV files, inserts data into a S3 bucket in Parquet format, creates corresponding tables in Amazon Athena, and performs SQL queries for data analysis according to business questions.
 
 ## Table of Contents
 
