@@ -58,7 +58,7 @@ Here we expose the queries that answers the five questions proposed in the test 
 1.	Escreva uma query que retorna a quantidade de linhas na tabela Sales.SalesOrderDetail pelo campo SalesOrderID, desde que tenham pelo menos três linhas de detalhes.
 ```
 SELECT SalesOrderID, COUNT(*) AS NumberOfDetails
-FROM "teste-eng-jr".sales_orderdetail
+FROM "raw".sales_orderdetail
 GROUP BY SalesOrderID
 HAVING COUNT(*) >= 3
 ```
@@ -70,10 +70,10 @@ SELECT
     pp.DaysToManufacture,
     SUM(sod.OrderQty) AS TotalOrderQuantity
 FROM
-"teste-eng-jr".sales_orderdetail sod
-INNER JOIN "teste-eng-jr".sales_specialofferproduct ssop
+"raw".sales_orderdetail sod
+INNER JOIN "raw".sales_specialofferproduct ssop
   ON sod.specialofferid = ssop.specialofferid and sod.productid = ssop.productid
-INNER JOIN "teste-eng-jr".production_product pp
+INNER JOIN "raw".production_product pp
   ON pp.productid = ssop.productid
 GROUP BY
     pp.Name, pp.DaysToManufacture
@@ -89,11 +89,11 @@ SELECT
     CONCAT(coalesce(pe.FirstName,''), ' ', COALESCE(pe.middlename,''), ' ', COALESCE(pe.LastName,'')) AS CustomerName,
     COUNT(soh.SalesOrderID) AS NumberOfOrders
 FROM
-    "teste-eng-jr".Person_Person pe
+    "raw".Person_Person pe
 INNER JOIN
-    "teste-eng-jr".sales_customer sc ON pe.BusinessEntityID = sc.PersonID
+    "raw".sales_customer sc ON pe.BusinessEntityID = sc.PersonID
 INNER JOIN
-    "teste-eng-jr".sales_orderheader soh ON sc.CustomerID = soh.CustomerID
+    "raw".sales_orderheader soh ON sc.CustomerID = soh.CustomerID
 GROUP BY
     1,2
 ORDER BY
@@ -108,10 +108,10 @@ SELECT
     soh.OrderDate,
     SUM(sod.OrderQty) AS TotalOrderQuantity
 FROM
-"teste-eng-jr".sales_orderheader soh
-INNER JOIN "teste-eng-jr".sales_orderdetail sod
+"raw".sales_orderheader soh
+INNER JOIN "raw".sales_orderdetail sod
 ON sod.salesorderid = soh.salesorderid
-INNER JOIN "teste-eng-jr".production_product pp
+INNER JOIN "raw".production_product pp
 ON pp.productid = sod.productid
 GROUP BY
     sod.ProductID, pp.name, soh.OrderDate
@@ -125,7 +125,7 @@ SELECT
     OrderDate,
     TotalDue
 FROM
-    "teste-eng-jr".sales_orderheader
+    "raw".sales_orderheader
 WHERE
     YEAR(CAST(OrderDate as TIMESTAMP)) = 2011
     AND MONTH(CAST(OrderDate AS TIMESTAMP)) = 9
