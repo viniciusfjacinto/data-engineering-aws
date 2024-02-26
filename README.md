@@ -55,7 +55,7 @@ The schema below show how data tables are related to each other in Athena:
 
 Here we expose the queries that answers the five questions proposed in the test (in portuguese):
 
-1.	Escreva uma query que retorna a quantidade de linhas na tabela Sales.SalesOrderDetail pelo campo SalesOrderID, desde que tenham pelo menos três linhas de detalhes.
+1.	Write a query that returns the number of rows in the Sales.SalesOrderDetail table by the SalesOrderID field, provided they have at least three detail rows.
 ```
 SELECT SalesOrderID, COUNT(*) AS NumberOfDetails
 FROM "raw".sales_orderdetail
@@ -63,7 +63,7 @@ GROUP BY SalesOrderID
 HAVING COUNT(*) >= 3
 ```
 
-2.	Escreva uma query que ligue as tabelas Sales.SalesOrderDetail, Sales.SpecialOfferProduct e Production.Product e retorne os 3 produtos (Name) mais vendidos (pela soma de OrderQty), agrupados pelo número de dias para manufatura (DaysToManufacture).
+2.	Write a query that joins the tables Sales.SalesOrderDetail, Sales.SpecialOfferProduct, and Production.Product and returns the top 3 products (by Name) sold the most (by the sum of OrderQty), grouped by the number of days to manufacture (DaysToManufacture).
 ```
 SELECT
     pp.Name AS ProductName,
@@ -82,7 +82,7 @@ ORDER BY
 LIMIT 3
 ```
 
-3.	Escreva uma query ligando as tabelas Person.Person, Sales.Customer e Sales.SalesOrderHeader de forma a obter uma lista de nomes de clientes e uma contagem de pedidos efetuados.
+3.	Write a query joining the tables Person.Person, Sales.Customer, and Sales.SalesOrderHeader to obtain a list of customer names and a count of orders placed.
 ```
 SELECT
     pe.businessentityid as PersonID,
@@ -100,7 +100,7 @@ ORDER BY
     COUNT(soh.SalesOrderID) desc
 ```
 
-4.	Escreva uma query usando as tabelas Sales.SalesOrderHeader, Sales.SalesOrderDetail e Production.Product, de forma a obter a soma total de produtos (OrderQty) por ProductID e OrderDate.
+4.	Write a query using the tables Sales.SalesOrderHeader, Sales.SalesOrderDetail, and Production.Product to obtain the total sum of products (OrderQty) per ProductID and OrderDate.
 ```
 SELECT
     sod.ProductID,
@@ -117,7 +117,7 @@ GROUP BY
     sod.ProductID, pp.name, soh.OrderDate
 ```
 
-5.	Escreva uma query mostrando os campos SalesOrderID, OrderDate e TotalDue da tabela Sales.SalesOrderHeader. Obtenha apenas as linhas onde a ordem tenha sido feita durante o mês de setembro/2011 e o total devido esteja acima de 1.000. Ordene pelo total devido decrescente.
+5.	Write a query showing the SalesOrderID, OrderDate, and TotalDue fields from the Sales.SalesOrderHeader table. Obtain only the rows where the order was made during September 2011 and the total due is above 1,000. Order by TotalDue descending.
 
 ```
 SELECT
